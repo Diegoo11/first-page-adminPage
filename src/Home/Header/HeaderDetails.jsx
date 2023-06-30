@@ -12,6 +12,7 @@ function HeaderDetails() {
     console.log({ data });
     console.log({
       src: data.get('src'),
+      alt: data.get('alt'),
       text: data.get('text'),
     });
   };
@@ -41,7 +42,7 @@ function HeaderDetails() {
         rowSpacing={2}
       >
         <Grid item xs={12}>
-          <Grid container>
+          <Grid container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <Box
                 component="img"
@@ -52,14 +53,24 @@ function HeaderDetails() {
                 }}
               />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={4}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 id="src"
-                label="Src"
+                label="Direction"
                 name="src"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="alt"
+                label="Description"
+                name="alt"
               />
             </Grid>
           </Grid>
