@@ -5,8 +5,14 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import { findID } from '../../util';
 
-function HeaderSummary() {
+function HeaderSummary({ images, texts }) {
+  const idImageLogo = '649e0f0de59b27af2756c89d';
+  const imgLogo = images.find(findID(idImageLogo));
+  const idTextLogo = '649f8b8fe527c66bfbf3f850';
+  const textLogo = texts.find(findID(idTextLogo));
+
   return (
     <Box sx={{
       display: 'flex',
@@ -31,14 +37,14 @@ function HeaderSummary() {
         <Grid item xs sx={{ display: 'flex', flexDirection: 'row' }}>
           <Box
             component="img"
-            src="https://cdn-icons-png.flaticon.com/512/8297/8297984.png"
-            alt="ico"
+            src={imgLogo.src}
+            alt={imgLogo.alt}
             sx={{
               m: 1, borderRadius: 1, width: 60, height: 60,
             }}
           />
           <Typography component="h1" variant="h5" sx={{ display: 'flex', alignItems: 'center' }}>
-            Eshop
+            {textLogo.name}
           </Typography>
         </Grid>
         <Grid item sx={{ display: 'flex' }}>
