@@ -1,19 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
+import { useMutation } from '@apollo/client';
+import { findID, FormImage, FormText } from '../../util';
+import { UPDATE_MODULE } from './Mutation';
 
-function HeaderDetails() {
+function HeaderDetails({ images, texts }) {
+  const idImageLogo = '649e0f0de59b27af2756c89d';
+  const imgLogo = images.find(findID(idImageLogo));
+  const idTextLogo = '649f8b8fe527c66bfbf3f850';
+  const textLogo = texts.find(findID(idTextLogo));
+
+  const [src, setSrc] = useState(imgLogo.src);
+  const [alt, setAlt] = useState(imgLogo.alt);
+  const [srcMobile, setSrcMobile] = useState(imgLogo.srcMobile);
+  const [imgLink, setImgLink] = useState(imgLogo.link);
+
+  const [name, setName] = useState(textLogo.name);
+  const [description, setDescription] = useState(textLogo.description);
+  const [textLink, setTextLink] = useState(textLogo.link);
+
+  const [changes, setChanges] = useState(true);
+
+  useEffect(() => {
+    if (src !== imgLogo.src
+      || alt !== imgLogo.alt
+      || srcMobile !== imgLogo.srcMobile
+      || imgLink !== imgLogo.link
+      || name !== textLogo.name
+      || description !== textLogo.description
+      || textLink !== textLogo.link
+    ) {
+      setChanges(false);
+    } else {
+      setChanges(true);
+    }
+  }, [src, alt, srcMobile, imgLink, name, description, textLink]);
+
+  const [updateModule, { data, loading, error }] = useMutation(UPDATE_MODULE);
+  useEffect(() => {
+  }, [data]);
+  if (loading) return 'Submitting...';
+  if (error) { console.log(error); return `Submission error! ${error.message}`; }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({ data });
-    console.log({
-      src: data.get('src'),
-      alt: data.get('alt'),
-      text: data.get('text'),
+    updateModule({
+      variables: {
+        editImageId: idImageLogo,
+        src,
+        alt,
+        srcMobile,
+        imgLink,
+        editTextId: idTextLogo,
+        name,
+        description,
+        textLink,
+      },
     });
   };
 
@@ -41,62 +86,29 @@ function HeaderDetails() {
         }}
         rowSpacing={2}
       >
-        <Grid item xs={12}>
-          <Grid container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Box
-                component="img"
-                src="https://cdn-icons-png.flaticon.com/512/8297/8297984.png"
-                alt="ico"
-                sx={{
-                  m: 1, borderRadius: 1, width: 60, height: 60,
-                }}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="src"
-                label="Direction"
-                name="src"
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="alt"
-                label="Description"
-                name="alt"
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Typography component="h1" variant="h4">
-                Eshop
-              </Typography>
-            </Grid>
-            <Grid item xs={9}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="text"
-                label="Text"
-                name="text"
-              />
-            </Grid>
-          </Grid>
-        </Grid>
+        <FormImage
+          img={imgLogo}
+          src={src}
+          alt={alt}
+          srcMobile={srcMobile}
+          imgLink={imgLink}
+          setSrc={setSrc}
+          setAlt={setAlt}
+          setSrcMobile={setSrcMobile}
+          setImgLink={setImgLink}
+        />
+        <FormText
+          text={textLogo}
+          name={name}
+          description={description}
+          textLink={textLink}
+          setName={setName}
+          setDescription={setDescription}
+          setTextLink={setTextLink}
+        />
         <Grid item xs={10} />
         <Grid item xs={2}>
-          <Button type="submit" fullWidth variant="contained">
+          <Button type="submit" fullWidth variant="contained" disabled={changes}>
             <Typography component="h1" variant="h6" color="white">
               Save
             </Typography>
