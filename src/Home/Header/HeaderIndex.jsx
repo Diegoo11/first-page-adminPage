@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import {
-  Accordion, AccordionSummary, Typography,
+  Accordion, AccordionSummary, CircularProgress, Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import { useQuery } from '@apollo/client';
 import { grey } from '@mui/material/colors';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import HeatherSummary from './HeaderSummary';
 import HeatherDetails from './HeaderDetails';
+import { QUERY_MODULE } from '../../Operations/query';
 
 function HeaderIndex() {
+  const { loading, data } = useQuery(QUERY_MODULE, {
+    variables: {
+      mod: 'Header',
+    },
+  });
+
   const [acor1, setAcor1] = useState(false);
 
   const hangleChange = () => {
@@ -26,8 +34,8 @@ function HeaderIndex() {
         expandIcon={<ExpandMoreIcon />}
         id="header"
       >
-        <ViewInArIcon />
-        <Typography component="h1" variant="h5">
+        <ViewInArIcon sx={{ m: 2 }} />
+        <Typography sx={{ display: 'flex', alignItems: 'center' }} component="h1" variant="h5">
           Header
         </Typography>
       </AccordionSummary>
@@ -39,10 +47,24 @@ function HeaderIndex() {
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
           >
-            <HeatherSummary />
+            {loading
+              ? <CircularProgress />
+              : (
+                <HeatherSummary
+                  images={data.findForModule.image}
+                  texts={data.findForModule.text}
+                />
+              )}
           </AccordionSummary>
           <AccordionDetails>
-            <HeatherDetails />
+            {loading
+              ? <CircularProgress />
+              : (
+                <HeatherDetails
+                  images={data.findForModule.image}
+                  texts={data.findForModule.text}
+                />
+              )}
           </AccordionDetails>
         </Accordion>
       </AccordionDetails>
