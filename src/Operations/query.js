@@ -12,20 +12,20 @@ query findById($ID: ID!) {
 `;
 
 export const QUERY_MODULE = gql`
-query($mod: String!){
-  findForModule(mod: $mod) {
-    image {
-      id
-      src
-      alt
-    }
-    text {
-      name
-      id
-      description
+  query($id: String!){
+    findForModule(id: $id) {
+      image {
+        id
+        src
+        alt
+      }
+      text {
+        name
+        id
+        description
+      }
     }
   }
-}
 `;
 
 export const hola = () => console.log('hola');
