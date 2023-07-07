@@ -14,7 +14,7 @@ import { QUERY_MODULE } from '../../Operations/query';
 function HeaderIndex() {
   const { loading, data } = useQuery(QUERY_MODULE, {
     variables: {
-      mod: 'Header',
+      id: '64a4ced84c622ac3d7588672',
     },
   });
 
