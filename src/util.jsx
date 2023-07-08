@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 export const isLoading = (trueFalse, component, className = '', secondComponent = null) => {
   if (secondComponent) {
@@ -48,7 +49,6 @@ export function FormImage({
                 id="src"
                 label="Direction"
                 name="src"
-                onChange={(e) => setSrc(e.target.value)}
                 value={src}
               />
             </Grid>
@@ -60,7 +60,6 @@ export function FormImage({
                 id="alt"
                 label="Description"
                 name="alt"
-                onChange={(e) => setAlt(e.target.value)}
                 value={alt}
               />
             </Grid>
@@ -72,7 +71,6 @@ export function FormImage({
                 label="Direction for view mobile"
                 name="srcMobile"
                 disabled
-                onChange={(e) => setSrcMobile(e.target.value)}
                 value={srcMobile}
               />
             </Grid>
@@ -83,7 +81,6 @@ export function FormImage({
                 id="link"
                 label="Redirection"
                 name="link"
-                onChange={(e) => setImgLink(e.target.value)}
                 value={srcLink}
               />
             </Grid>
@@ -115,7 +112,6 @@ export function FormText({
                 id="name"
                 label="Name"
                 name="name"
-                onChange={(e) => setName(e.target.value)}
                 value={name}
               />
             </Grid>
@@ -126,7 +122,6 @@ export function FormText({
                 id="link"
                 label="Redirection"
                 name="link"
-                onChange={(e) => setTextLink(e.target.value)}
                 value={textLink}
               />
             </Grid>
@@ -139,7 +134,6 @@ export function FormText({
                 name="description"
                 multiline
                 placeholder="Placeholder"
-                onChange={(e) => setDescription(e.target.value)}
                 value={description}
               />
             </Grid>
@@ -149,3 +143,49 @@ export function FormText({
     </Grid>
   );
 }
+
+export function FormBox({ handleSubmit, children, changes }) {
+  return (
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      noValidate
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        paddingTop: 3,
+        paddingBottom: 3,
+      }}
+    >
+      <Grid
+        container
+        maxWidth="md"
+        sx={{
+          marginLeft: -3,
+          width: '100%',
+          display: 'flex',
+        }}
+        rowSpacing={2}
+      >
+        {children}
+        <Grid item xs={10} />
+        <Grid item xs={2}>
+          <Button type="submit" fullWidth variant="contained" disabled={changes}>
+            <Typography component="h1" variant="h6" color="white">
+              Save
+            </Typography>
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+
+export const useImage = (img) => {
+  const [src, setSrc] = useState(img.src);
+  const [alt, setAlt] = useState(img.alt);
+  const [srcMobile, setSrcMobile] = useState(img.srcMobile);
+  const [imgLink, setImgLink] = useState(img.link);
+};
