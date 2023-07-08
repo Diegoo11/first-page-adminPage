@@ -39,9 +39,7 @@ function HeaderDetails({ images, texts }) {
     }
   }, [src, alt, srcMobile, imgLink, name, description, textLink]);
 
-  const [updateModule, { data, loading, error }] = useMutation(UPDATE_MODULE);
-  useEffect(() => {
-  }, [data]);
+  const [updateModule, { loading, error }] = useMutation(UPDATE_MODULE);
   if (loading) return 'Submitting...';
   if (error) { console.log(error); return `Submission error! ${error.message}`; }
 
