@@ -1,7 +1,12 @@
+/* eslint-disable react/no-array-index-key */
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { findID } from '../../../util';
 
-function BackgroundPreview() {
+function BackgroundPreview({ images, texts }) {
+  const imageBg = images.find(findID('649b166f083daa9c8af6e139'));
+  const textBg = texts.find(findID('64a39756de4fc89914038f06'));
+  const title = texts.find(findID('649f8b8fe527c66bfbf3f850'));
   return (
     <Box sx={{
       display: 'flex',
@@ -24,8 +29,8 @@ function BackgroundPreview() {
         <Grid item xs={6} overflow="hidden" sx={{ position: 'relative' }}>
           <Box
             component="img"
-            src="https://www.tuexperto.com/wp-content/uploads/2022/01/paginas-descargar-fondos-de-pantalla.jpg.webp"
-            alt="test"
+            src={imageBg.src}
+            alt={imageBg.alt}
             sx={{
               m: 0,
               width: '150%',
@@ -64,7 +69,7 @@ function BackgroundPreview() {
             fontSize: '1.2rem',
           }}
           >
-            La PC gamer de tu sueños a un click, consulta con nosotros.
+            {textBg.description}
           </Typography>
         </Grid>
         <Grid
@@ -75,11 +80,7 @@ function BackgroundPreview() {
           }}
         >
           <Typography component="h1" variant="h4" sx={{ display: 'flex', flexDirection: 'column', fontWeight: 'bold' }}>
-            <span>A</span>
-            <span>S</span>
-            <span>H</span>
-            <span>O</span>
-            <span>P</span>
+            {title.name.toUpperCase().split('').map((letter, n) => <span key={`649b166f083daa9c8af6e139${n}`}>{letter}</span>)}
           </Typography>
         </Grid>
       </Grid>
