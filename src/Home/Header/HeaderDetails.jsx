@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-restricted-syntax */
 import React from 'react';
 import { useMutation } from '@apollo/client';
@@ -42,10 +41,6 @@ function HeaderDetails({ images, texts }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({
-      ImgLogo: gdImageLogo(),
-      TextLogo: gdTextLogo(),
-    });
     editModule({
       variables: {
         images: [gdImageLogo()],
