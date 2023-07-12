@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { useMutation } from '@apollo/client'; import {
   findID, FormBox, FormImage, FormText, useForm,
@@ -18,11 +17,6 @@ function BackgroundDetails({ images, texts }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({
-      ImageBg: gdImageBg(),
-      TextBg: gdTextBg(),
-      Title: gdTitle(),
-    });
     editModule({
       variables: {
         images: [gdImageBg()],
