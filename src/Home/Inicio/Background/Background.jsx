@@ -1,15 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import BackgroundPreview from './BackgroundPreview';
 import BackgroundDetails from './BackgroundDetails';
+import { useToggle } from '../../../util';
 
 function Background({ images, texts }) {
-  const [open, setOpen] = useState(false);
-
-  const hangleChange = () => {
-    setOpen((o) => !o);
-  };
+  const { open, hangleChange } = useToggle();
 
   return (
     <Accordion expanded={open} onChange={hangleChange}>
