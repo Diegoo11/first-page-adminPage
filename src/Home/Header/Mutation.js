@@ -1,37 +1,19 @@
+/* eslint-disable import/prefer-default-export */
 import { gql } from '@apollo/client';
 
 export const UPDATE_MODULE = gql`
-mutation(
-  $editImageId: String!,
-  $src: String!,
-  $alt: String!,
-  $editTextId: String!,
-  $name: String!,
-  $description: String,
-  $srcMobile: String,
-  $imgLink: String,
-  $textLink: String
-  ){
-  editImage(
-    id: $editImageId,
-    src: $src,
-    alt: $alt,
-    srcMobile: $srcMobile
-    link: $imgLink
-  ) {
-    src
-    id
-    alt
-  }
-  editText(
-    id: $editTextId,
-    name: $name,
-    description: $description,
-    link: $textLink
-    ) {
-    name
-    id
-    description
+mutation EditModule($images: [ImageInput], $texts: [TextInput]) {
+  editModule(images: $images, texts: $texts) {
+    image {
+      src
+      alt
+      id
+    }
+    text {
+      description
+      name
+      id
+    }
   }
 }
 `;
