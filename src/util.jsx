@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, {
+  forwardRef, useState, useImperativeHandle, useRef,
+} from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -23,9 +25,18 @@ export const isLoading = (trueFalse, component, className = '', secondComponent 
 
 export const findID = (id) => (obj) => obj.id === id;
 
-export function FormImage({
-  img, setSrc, setAlt, setSrcMobile, setImgLink, src, alt, srcMobile, srcLink,
-}) {
+export const FormImage = forwardRef(({
+  img,
+}, ref) => {
+  const [src, setSrc] = useState(img.src);
+  const [alt, setAlt] = useState(img.alt);
+  const [srcMobile, setSrcMobile] = useState(img.srcMobile || '');
+  const [link, setLink] = useState(img.link || '');
+  useImperativeHandle(ref, () => ({
+    getData: () => ({
+      src, alt, srcMobile, link, id: img.id,
+    }),
+  }));
   return (
     <Grid item xs={12}>
       <Grid container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -35,7 +46,7 @@ export function FormImage({
             src={img.src}
             alt={img.alt}
             sx={{
-              m: 1, borderRadius: 1, width: 100, height: 100,
+              m: 1, borderRadius: 1, width: '100%',
             }}
           />
         </Grid>
@@ -50,6 +61,7 @@ export function FormImage({
                 label="Direction"
                 name="src"
                 value={src}
+                onChange={(e) => setSrc(e.target.value)}
               />
             </Grid>
             <Grid item xs={11} md={5}>
@@ -61,6 +73,7 @@ export function FormImage({
                 label="Description"
                 name="alt"
                 value={alt}
+                onChange={(e) => setAlt(e.target.value)}
               />
             </Grid>
             <Grid item xs={11} md={6}>
@@ -70,8 +83,8 @@ export function FormImage({
                 id="srcMobile"
                 label="Direction for view mobile"
                 name="srcMobile"
-                disabled
                 value={srcMobile}
+                onChange={(e) => setSrcMobile(e.target.value)}
               />
             </Grid>
             <Grid item xs={11} md={5}>
@@ -81,7 +94,8 @@ export function FormImage({
                 id="link"
                 label="Redirection"
                 name="link"
-                value={srcLink}
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -89,11 +103,21 @@ export function FormImage({
       </Grid>
     </Grid>
   );
-}
+});
 
-export function FormText({
-  text, setName, setDescription, setTextLink, name, description, textLink,
-}) {
+export const FormText = forwardRef(({
+  text,
+}, ref) => {
+  const [name, setName] = useState(text.name);
+  const [description, setDescription] = useState(text.description || '');
+  const [link, setLink] = useState(text.link || '');
+
+  useImperativeHandle(ref, () => ({
+    getData: () => ({
+      name, description, link, id: text.id,
+    }),
+  }));
+
   return (
     <Grid item xs={12}>
       <Grid container>
@@ -113,6 +137,7 @@ export function FormText({
                 label="Name"
                 name="name"
                 value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={11} md={5}>
@@ -122,7 +147,8 @@ export function FormText({
                 id="link"
                 label="Redirection"
                 name="link"
-                value={textLink}
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
               />
             </Grid>
             <Grid item xs={11} md={11.2}>
@@ -135,6 +161,7 @@ export function FormText({
                 multiline
                 placeholder="Placeholder"
                 value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -142,7 +169,7 @@ export function FormText({
       </Grid>
     </Grid>
   );
-}
+});
 
 export function FormBox({ handleSubmit, children, changes }) {
   return (
@@ -182,10 +209,25 @@ export function FormBox({ handleSubmit, children, changes }) {
     </Box>
   );
 }
-
+/*
 export const useImage = (img) => {
   const [src, setSrc] = useState(img.src);
   const [alt, setAlt] = useState(img.alt);
   const [srcMobile, setSrcMobile] = useState(img.srcMobile);
   const [imgLink, setImgLink] = useState(img.link);
+};
+*/
+
+export const useForm = () => {
+  const ref = useRef();
+  const getData = () => ref.current.getData();
+  return [ref, getData];
+};
+
+export const useToggle = () => {
+  const [open, setOpen] = useState(false);
+
+  const hangleChange = () => setOpen((o) => !o);
+
+  return { open, hangleChange };
 };
