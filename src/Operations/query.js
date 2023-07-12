@@ -30,5 +30,3 @@ export const QUERY_MODULE = gql`
     }
   }
 `;
-
-export const hola = () => console.log('hola');
