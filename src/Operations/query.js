@@ -18,11 +18,14 @@ export const QUERY_MODULE = gql`
         id
         src
         alt
+        srcMobile
+        id
       }
       text {
         name
         id
         description
+        id
       }
     }
   }
