@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { useMutation } from '@apollo/client'; import {
-  findID, FormBox, FormImage, FormText,
+  findID, FormBox, FormImage, FormText, useForm,
 } from '../../../util';
 import { UPDATE_MODULE } from '../../Header/Mutation';
 
@@ -9,15 +10,23 @@ function BackgroundDetails({ images, texts }) {
   const textBg = texts.find(findID('64a39756de4fc89914038f06'));
   const title = texts.find(findID('649f8b8fe527c66bfbf3f850'));
 
+  const [refImageBg, gdImageBg] = useForm();
+  const [refTextBg, gdTextBg] = useForm();
+  const [refTitle, gdTitle] = useForm();
+
   const [editModule, { loading, error }] = useMutation(UPDATE_MODULE);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const infoInput = new FormData(event.currentTarget);
+    console.log({
+      ImageBg: gdImageBg(),
+      TextBg: gdTextBg(),
+      Title: gdTitle(),
+    });
     editModule({
       variables: {
-        username: infoInput.get('username'),
-        password: infoInput.get('password'),
+        images: [gdImageBg()],
+        texts: [gdTextBg(), gdTitle()],
       },
     });
   };
@@ -28,23 +37,16 @@ function BackgroundDetails({ images, texts }) {
   return (
     <FormBox handleSubmit={handleSubmit} changes={false}>
       <FormImage
+        ref={refImageBg}
         img={imageBg}
-        src={imageBg.src}
-        alt={imageBg.alt}
-        srcMobile={imageBg.srcMobile}
-        imgLink={imageBg.link}
       />
       <FormText
+        ref={refTextBg}
         text={textBg}
-        name={textBg.name}
-        description={textBg.description}
-        textLink={textBg.link}
       />
       <FormText
+        ref={refTitle}
         text={title}
-        name={title.name}
-        description={title.description}
-        textLink={title.link}
       />
     </FormBox>
   );
