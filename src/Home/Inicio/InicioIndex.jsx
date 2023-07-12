@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Accordion, CircularProgress, AccordionDetails, AccordionSummary, Typography,
+  Accordion, CircularProgress, AccordionDetails, AccordionSummary, Typography, Stack,
 } from '@mui/material';
 import { useQuery } from '@apollo/client';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -8,6 +8,7 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { grey } from '@mui/material/colors';
 import Background from './Background/Background';
 import { QUERY_MODULE } from '../../Operations/query';
+import Slider from './Slider/Slider';
 
 function InicioIndex() {
   const [open, setOpen] = useState(false);
@@ -43,7 +44,10 @@ function InicioIndex() {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Background images={images} texts={texts} />
+        <Stack spacing={3}>
+          <Background images={images} texts={texts} />
+          <Slider images={images} texts={texts} />
+        </Stack>
       </AccordionDetails>
     </Accordion>
   );
