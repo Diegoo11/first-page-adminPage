@@ -17,7 +17,7 @@ function BackgroundPreview({ images, texts }) {
     >
       <Grid
         container
-        maxWidth="md"
+        maxWidth="lg"
         sx={{
           m: 2,
           borderRadius: 1,
@@ -35,7 +35,7 @@ function BackgroundPreview({ images, texts }) {
               m: 0,
               width: '150%',
               marginLeft: '-25%',
-              height: 250,
+              height: 400,
               objectFit: 'cover',
               objectPosition: 'center',
             }}
