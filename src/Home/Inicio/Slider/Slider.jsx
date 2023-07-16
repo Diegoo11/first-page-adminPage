@@ -5,10 +5,10 @@ import { useToggle } from '../../../util';
 import SliderPreview from './SliderPreview';
 import SliderDetails from './SliderDetails';
 
-function Slider({ images, texts }) {
-  const { open, hangleChange } = useToggle;
+function Slider({ images }) {
+  const { open, handleChange } = useToggle();
   return (
-    <Accordion expanded={open} onChange={hangleChange}>
+    <Accordion expanded={open} onChange={handleChange}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <SliderPreview images={images} />
       </AccordionSummary>

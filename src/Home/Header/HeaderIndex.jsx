@@ -20,7 +20,7 @@ function HeaderIndex() {
 
   const [acor1, setAcor1] = useState(false);
 
-  const hangleChange = () => {
+  const handleChange = () => {
     setAcor1((n) => !n);
   };
   const [subAcor1, setSubAcor1] = useState(false);
@@ -29,7 +29,7 @@ function HeaderIndex() {
     setSubAcor1((n) => !n);
   };
   return (
-    <Accordion expanded={acor1} onChange={hangleChange} sx={{ bgcolor: grey[100] }}>
+    <Accordion expanded={acor1} onChange={handleChange} sx={{ bgcolor: grey[100] }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         id="header"

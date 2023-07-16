@@ -6,10 +6,10 @@ import BackgroundDetails from './BackgroundDetails';
 import { useToggle } from '../../../util';
 
 function Background({ images, texts }) {
-  const { open, hangleChange } = useToggle();
+  const { open, handleChange } = useToggle();
 
   return (
-    <Accordion expanded={open} onChange={hangleChange}>
+    <Accordion expanded={open} onChange={handleChange}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <BackgroundPreview images={images} texts={texts} />
       </AccordionSummary>
