@@ -205,17 +205,21 @@ export function FormBox({ handleSubmit, children, changes }) {
   );
 }
 
-export function ImgRatio({ aspectRatio, src, alt }) {
+export function ImgRatio({
+  aspectRatio, src, alt, h = '100%',
+}) {
   const containerStyle = {
     position: 'relative',
     width: '100%',
     paddingBottom: `${(1 / aspectRatio) * 100}%`,
   };
 
+  if (h !== '100%') { containerStyle.height = h; containerStyle.paddingBottom = 0; }
+
   const imageStyle = {
     position: 'absolute',
     width: '100%',
-    height: '100%',
+    height: h,
     objectFit: 'cover',
   };
 
