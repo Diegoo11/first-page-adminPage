@@ -2,6 +2,7 @@ import React, {
   forwardRef, useState, useImperativeHandle, useRef,
 } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -39,16 +40,10 @@ export const FormImage = forwardRef(({
   }));
   return (
     <Grid item xs={12}>
+      <Divider sx={{ m: 3 }} />
       <Grid container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Box
-            component="img"
-            src={img.src}
-            alt={img.alt}
-            sx={{
-              m: 1, borderRadius: 1, width: '100%',
-            }}
-          />
+          <ImgRatio src={img.src} alt={img.alt} aspectRatio={4 / 3} />
         </Grid>
         <Grid item xs={12} md={9}>
           <Grid container columnGap={2} sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -122,7 +117,7 @@ export const FormText = forwardRef(({
     <Grid item xs={12}>
       <Grid container>
         <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Typography component="h1" variant="h4">
+          <Typography component="h1" variant="h4" textAlign="center" fontWeight="bold">
             {text.name}
           </Typography>
         </Grid>
@@ -188,7 +183,7 @@ export function FormBox({ handleSubmit, children, changes }) {
     >
       <Grid
         container
-        maxWidth="md"
+        maxWidth="lg"
         sx={{
           marginLeft: -3,
           width: '100%',
@@ -206,6 +201,32 @@ export function FormBox({ handleSubmit, children, changes }) {
           </Button>
         </Grid>
       </Grid>
+    </Box>
+  );
+}
+
+export function ImgRatio({ aspectRatio, src, alt }) {
+  const containerStyle = {
+    position: 'relative',
+    width: '100%',
+    paddingBottom: `${(1 / aspectRatio) * 100}%`,
+  };
+
+  const imageStyle = {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  };
+
+  return (
+    <Box sx={containerStyle}>
+      <Box
+        component="img"
+        src={src}
+        alt={alt}
+        sx={imageStyle}
+      />
     </Box>
   );
 }
@@ -227,7 +248,7 @@ export const useForm = () => {
 export const useToggle = () => {
   const [open, setOpen] = useState(false);
 
-  const hangleChange = () => setOpen((o) => !o);
+  const handleChange = () => setOpen((o) => !o);
 
-  return { open, hangleChange };
+  return { open, handleChange };
 };
