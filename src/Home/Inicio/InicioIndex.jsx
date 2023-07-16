@@ -9,6 +9,7 @@ import { grey } from '@mui/material/colors';
 import Background from './Background/Background';
 import { QUERY_MODULE } from '../../Operations/query';
 import Slider from './Slider/Slider';
+import Products from './Products/Products';
 
 function InicioIndex() {
   const [open, setOpen] = useState(false);
@@ -47,6 +48,7 @@ function InicioIndex() {
         <Stack spacing={3}>
           <Background images={images} texts={texts} />
           <Slider images={images} texts={texts} />
+          <Products images={images} texts={texts} />
         </Stack>
       </AccordionDetails>
     </Accordion>
