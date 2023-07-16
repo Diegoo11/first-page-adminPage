@@ -23,7 +23,7 @@ function HeaderSummary({ images, texts }) {
     >
       <Grid
         container
-        maxWidth="md"
+        maxWidth="lg"
         sx={{
           m: 2,
           borderRadius: 1,

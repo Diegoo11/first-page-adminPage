@@ -17,7 +17,7 @@ function SliderPreview({ images }) {
     >
       <Grid
         container
-        maxWidth="md"
+        maxWidth="lg"
         sx={{
           m: 2,
           borderRadius: 1,
@@ -45,7 +45,7 @@ function SliderPreview({ images }) {
             size="large"
             sx={{ position: 'absolute', top: '45%', left: '92%' }}
           >
-            <ArrowBackIosNewIcon rotate="180deg" />
+            <ArrowBackIosNewIcon sx={{ transform: 'rotate(180deg)' }} />
           </IconButton>
           <Stack
             direction="row"
