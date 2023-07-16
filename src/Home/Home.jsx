@@ -9,6 +9,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HeaderIndex from './Header/HeaderIndex';
 import InicioIndex from './Inicio/InicioIndex';
+import SubscribeIndex from './Subscribe/SubscribeIndex';
 
 const defaultTheme = createTheme({
   palette: {
@@ -64,6 +65,7 @@ function Home() {
             ))}
           </List>
         </Drawer>
+
         <Container
           component="main"
           maxWidth="xl"
@@ -74,6 +76,7 @@ function Home() {
           <Stack spacing={3}>
             <HeaderIndex />
             <InicioIndex />
+            <SubscribeIndex />
           </Stack>
         </Container>
       </Box>
