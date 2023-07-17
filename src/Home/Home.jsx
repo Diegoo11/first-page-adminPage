@@ -10,6 +10,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import HeaderIndex from './Header/HeaderIndex';
 import InicioIndex from './Inicio/InicioIndex';
 import SubscribeIndex from './Subscribe/SubscribeIndex';
+import CatalogoIndex from './Catalogo/CatalogoIndex';
 
 const defaultTheme = createTheme({
   palette: {
@@ -77,6 +78,7 @@ function Home() {
             <HeaderIndex />
             <InicioIndex />
             <SubscribeIndex />
+            <CatalogoIndex />
           </Stack>
         </Container>
       </Box>
