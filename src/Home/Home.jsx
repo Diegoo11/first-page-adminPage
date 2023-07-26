@@ -25,7 +25,7 @@ const drawerWidth = 300;
 function Home() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex' }} bgcolor="#f4f4f4">
         <Drawer
           sx={{
             width: drawerWidth,
