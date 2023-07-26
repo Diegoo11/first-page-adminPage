@@ -16,7 +16,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:1111/',
+  uri: 'https://first-page-backend-production.up.railway.app/',
 });
 
 const client = new ApolloClient({
