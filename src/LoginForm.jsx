@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -9,8 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { cyan } from '@mui/material/colors';
-import { useMutation } from '@apollo/client';
-import { LOGIN_ADMIN } from './Operations/mutation';
+import { useAdmin } from './context/AdminContext';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -22,27 +21,16 @@ const defaultTheme = createTheme({
   },
 });
 
-function LoginForm({ setToken }) {
-  const [loginAdmin, result] = useMutation(LOGIN_ADMIN);
-
+function LoginForm() {
+  const { login } = useAdmin();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    loginAdmin({
-      variables: {
-        username: data.get('username'),
-        password: data.get('password'),
-      },
+    login({
+      username: data.get('username'),
+      password: data.get('password'),
     });
   };
-
-  useEffect(() => {
-    if (result.data) {
-      const { value: token } = result.data.loginAdmin;
-      setToken(token);
-      localStorage.setItem('admin-login-token', token);
-    }
-  }, [result.data]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -80,6 +68,14 @@ function LoginForm({ setToken }) {
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign in
             </Button>
+          </Box>
+          <Box>
+            <Typography>
+              Username: admin
+            </Typography>
+            <Typography>
+              Password: admin
+            </Typography>
           </Box>
         </Box>
       </Container>
