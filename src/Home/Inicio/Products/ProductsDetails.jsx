@@ -36,7 +36,7 @@ function ProductDetails({ images, texts }) {
   };
 
   if (loading) return 'Submitting...';
-  if (error) { console.log(error); return `Submission error! ${error.message}`; }
+  if (error) return `Submission error! ${error.message}`;
 
   return (
     <FormBox handleSubmit={handleSubmit} changes={false}>
