@@ -1,5 +1,5 @@
 import React, {
-  forwardRef, useState, useImperativeHandle, useRef,
+  forwardRef, useState, useImperativeHandle, useRef, useEffect,
 } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
@@ -204,6 +204,278 @@ export function FormBox({ handleSubmit, children, changes }) {
     </Box>
   );
 }
+
+export const FormBrand = forwardRef(({ brand }, ref) => {
+  const [name, setName] = useState(brand.name);
+  const [src, setSrc] = useState(brand.src);
+
+  useImperativeHandle(ref, () => ({
+    getData: () => ({
+      name, src, id: brand.id,
+    }),
+  }));
+
+  return (
+    <Grid item xs={12}>
+      <Divider sx={{ m: 3 }} />
+      <Grid container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <ImgRatio src={brand.src} alt={brand.alt} aspectRatio={4 / 3} />
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <Grid container columnGap={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={11} md={5}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={11} md={6}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="src"
+                label="Direction"
+                name="src"
+                value={src}
+                onChange={(e) => setSrc(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+});
+
+export const FormShop = forwardRef(({ shop }, ref) => {
+  const [name, setName] = useState(shop.name);
+  const [city, setCity] = useState(shop.city);
+  const [direcction, setDirecction] = useState(shop.direcction);
+  const [phone, setPhone] = useState(shop.phone);
+  const [email, setEmail] = useState(shop.email);
+  const [workingHours, setWorkingHours] = useState(shop.workingHours);
+  const [src, setSrc] = useState(shop.src);
+
+  useImperativeHandle(ref, () => ({
+    getData: () => ({
+      name, city, direcction, phone, email, workingHours, src, id: shop.id,
+    }),
+  }));
+
+  return (
+    <Grid item xs={12}>
+      <Divider sx={{ m: 3 }} />
+      <Grid container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <ImgRatio src={shop.src} alt={shop.alt} aspectRatio={4 / 3} />
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <Grid container columnGap={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={11} md={5}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={11} md={6}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="src"
+                label="Image"
+                name="src"
+                value={src}
+                onChange={(e) => setSrc(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={11} md={5}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="city"
+                label="City"
+                name="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={11} md={6}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="direcction"
+                label="Direcction"
+                name="direcction"
+                value={direcction}
+                onChange={(e) => setDirecction(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={11} md={5}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="phone"
+                label="Phone"
+                name="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={11} md={6}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={11} md={11}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="workingHours"
+                label="workingHours"
+                name="workingHours"
+                value={workingHours}
+                onChange={(e) => setWorkingHours(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+});
+
+export const FormItem = forwardRef(({ item, edit }, ref) => {
+  const [name, setName] = useState('');
+  const [cost, setCost] = useState('');
+  const [stock, setStock] = useState('');
+  const [description, setDescription] = useState('');
+  const [brand, setBrand] = useState('');
+  const [src, setSrc] = useState('');
+
+  useEffect(() => {
+    if (edit) {
+      setName(item.name);
+      setCost(Number(item.cost));
+      setStock(item.stock);
+      setDescription(item.description);
+      setBrand(item.brand);
+      setSrc(item.src);
+    }
+  }, [item, edit]);
+
+  useImperativeHandle(ref, () => ({
+    getData: () => ({
+      name, cost, stock, description, brand, src,
+    }),
+  }));
+  return (
+    <Grid container columnGap={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Grid item xs={5}>
+        <TextField
+          margin="normal"
+          fullWidth
+          required
+          id="name"
+          label="Name"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="cost"
+          type="number"
+          label="Cost"
+          name="cost"
+          value={cost}
+          onChange={(e) => setCost(Number(e.target.value))}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="stock"
+          label="Stock"
+          type="number"
+          name="stock"
+          value={stock}
+          onChange={(e) => setStock(Number(e.target.value))}
+        />
+      </Grid>
+      <Grid item xs={4}>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="brand"
+          label="Brand"
+          name="brand"
+          multiline
+          placeholder="brand"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={7.2}>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="src"
+          label="Src"
+          name="src"
+          multiline
+          placeholder="src"
+          value={src}
+          onChange={(e) => setSrc(e.target.value)}
+        />
+      </Grid>
+
+      <Grid item xs={11.4}>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="description"
+          label="Description"
+          name="description"
+          multiline
+          placeholder="description"
+          value={description}
+          rows={4}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </Grid>
+    </Grid>
+  );
+});
 
 export function ImgRatio({
   aspectRatio, src, alt, h = '100%',
