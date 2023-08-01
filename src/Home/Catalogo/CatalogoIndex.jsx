@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Accordion, AccordionDetails, AccordionSummary, CircularProgress,
+  Accordion, AccordionDetails, AccordionSummary, CircularProgress, Box, Typography,
 } from '@mui/material';
+import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useQuery } from '@apollo/client';
 import { useToggle } from '../../util';
@@ -33,14 +34,20 @@ function CatalogoIndex() {
   const texts = data.findForModule.text;
 
   return (
-    <Accordion expanded={open} onChange={handleChange}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <CatalogoPreview images={images} texts={texts} />
-      </AccordionSummary>
-      <AccordionDetails>
-        <CatalogoForm images={images} texts={texts} />
-      </AccordionDetails>
-    </Accordion>
+    <>
+      <Box display="flex" alignItems="center">
+        <ViewInArIcon sx={{ m: 2 }} />
+        <Typography variant="h5" component="h1" id="catalogo">Catalogo</Typography>
+      </Box>
+      <Accordion expanded={open} onChange={handleChange}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <CatalogoPreview images={images} texts={texts} />
+        </AccordionSummary>
+        <AccordionDetails>
+          <CatalogoForm images={images} texts={texts} />
+        </AccordionDetails>
+      </Accordion>
+    </>
   );
 }
 

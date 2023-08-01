@@ -25,7 +25,7 @@ function HeaderIndex() {
     <>
       <Box display="flex" alignItems="center">
         <ViewInArIcon sx={{ m: 2 }} />
-        <Typography variant="h5" component="h1">Header</Typography>
+        <Typography variant="h5" component="h1" id="header">Header</Typography>
       </Box>
       <Accordion
         expanded={subAcor1}

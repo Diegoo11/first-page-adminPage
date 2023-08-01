@@ -33,7 +33,7 @@ function InicioIndex() {
     <>
       <Box display="flex" alignItems="center">
         <ViewInArIcon sx={{ m: 2 }} />
-        <Typography variant="h5" component="h1">Inicio</Typography>
+        <Typography variant="h5" component="h1" id="inicio">Inicio</Typography>
       </Box>
       <Stack spacing={3}>
         <Background images={images} texts={texts} />
