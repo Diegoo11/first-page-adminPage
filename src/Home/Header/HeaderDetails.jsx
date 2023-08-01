@@ -37,7 +37,7 @@ function HeaderDetails({ images, texts }) {
     }
   }, [src, alt, srcMobile, imgLink, name, description, textLink]);
 */
-  const [editModule, { loading, error }] = useMutation(UPDATE_MODULE);
+  const [editModule, { loading }] = useMutation(UPDATE_MODULE);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -64,7 +64,6 @@ function HeaderDetails({ images, texts }) {
   };
 
   if (loading) return 'Submitting...';
-  if (error) { console.log(error); return `Submission error! ${error.message}`; }
 
   return (
     <FormBox handleSubmit={handleSubmit} changes={false}>

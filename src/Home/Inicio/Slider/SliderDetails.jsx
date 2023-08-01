@@ -12,7 +12,7 @@ function SliderDetails({ images }) {
   const slide4 = images.find(findID('64addeff30e42997de6acc00'));
   const slide5 = images.find(findID('64addf4e30e42997de6acc02'));
 
-  const [editModule, { loading, error }] = useMutation(UPDATE_MODULE);
+  const [editModule, { loading }] = useMutation(UPDATE_MODULE);
 
   const [refSlide1, gdSlide1] = useForm();
   const [refSlide2, gdSlide2] = useForm();
@@ -31,7 +31,6 @@ function SliderDetails({ images }) {
   };
 
   if (loading) return 'Submitting...';
-  if (error) { console.log(error); return `Submission error! ${error.message}`; }
 
   return (
     <FormBox handleSubmit={handleSubmit} changes={false}>
