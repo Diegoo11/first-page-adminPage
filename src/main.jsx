@@ -22,7 +22,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: 'https://first-page-backend-production.up.railway.app/',
+  uri: import.meta.env.VITE_URL_BACKEND,
   headers: {
     authorization: getAuth(),
   },
